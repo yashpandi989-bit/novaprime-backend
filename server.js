@@ -1,7 +1,8 @@
+
 require("dns").setServers(["8.8.8.8", "8.8.4.4"]);
 
 console.log("SERVER VERSION 17-JUNE");
-
+const vendorRoutes = require("./routes/vendorRoutes");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -69,10 +70,10 @@ app.use("/api/customers", customerRoutes);
 app.use("/api/invoices", invoiceRoutes);
 app.use("/api/products", productRoutes);
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
-  app.listen(PORT, "0.0.0.0", () => {
+if (require.main === module) {
+  app.listen(PORT, () => {
     console.log(`🚀 Server running on ${PORT}`);
   });
 }
